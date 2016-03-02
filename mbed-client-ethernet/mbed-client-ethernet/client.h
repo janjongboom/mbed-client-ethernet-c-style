@@ -232,4 +232,19 @@ bool mbed_client_define_function(const char* route, void(*fn)(void*)) {
     return true;
 }
 
+bool mbed_client_define_function(const char* route, execute_callback fn) {
+    if (!mbed_client_define_resource(route, string(), M2MBase::POST_ALLOWED, false)) {
+        return false;
+    }
+
+    string route_str(route);
+    if (!resources.count(route_str)) {
+        output.printf("[ETH] [ERROR] Should be created, but no such route (%s)\r\n", route);
+        return false;
+    }
+    // No clue why this is not working?! It works with class member, but not with static function...
+    resources[route_str]->set_execute_function(fn);
+    return true;
+}
+
 #endif // __MBED_CLIENT_ETHERNET_CLIENT_H__
