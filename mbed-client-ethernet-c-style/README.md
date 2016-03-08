@@ -4,7 +4,12 @@ This is an [mbed Client](https://www.mbed.com/en/development/software/mbed-clien
 
 Porting this repo over to do 6LoWPAN should be trivial.
 
-## Set up
+* [Setup](#setup)
+* [Storing data in Connector](#storing-data-in-connector)
+* [Calling functions from Connector](#calling-functions-from-connector)
+* [Full example application](#full-example-application)
+
+## Setup
 
 First install the library through [yotta](http://yotta.mbed.com):
 
