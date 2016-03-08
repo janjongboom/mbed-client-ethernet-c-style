@@ -227,8 +227,9 @@ bool mbed_client_define_function(const char* route, void(*fn)(void*)) {
         output.printf("[ETH] [ERROR] Should be created, but no such route (%s)\r\n", route);
         return false;
     }
-    // No clue why this is not working?! It works with class member, but not with static function...
-    resources[route_str]->set_execute_function(execute_callback(fn));
+
+    FunctionPointer1<void, void*>* fp = new FunctionPointer1<void, void*>(fn);
+    resources[route_str]->set_execute_function(execute_callback(fp, &FunctionPointer1<void, void*>::call));
     return true;
 }
 

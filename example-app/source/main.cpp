@@ -18,23 +18,16 @@ void click_btn2() {
     mbed_client_set("button/clickcount", ++count);
 }
 
-// mbed Client only seems to like callbacks in classes right now, so working around this
-class Bla {
-public:
-    void toggle_led(void*) {
-        green = !green;
-    }
-};
+void toggle_led(void*) {
+    green = !green;
+}
 
 void app_start(int, char **) {
     red = blue = green = 1; // turn LEDs off first
 
     mbed_client_define_resource("button/clickcount", 0, M2MBase::GET_PUT_ALLOWED, true);
     mbed_client_define_resource("button/test", string("Hoi"), M2MBase::GET_ALLOWED, false);
-
-    // This will be: define_function("led/toggle", &toggle_led)
-    auto bla = new Bla();
-    mbed_client_define_function("led/toggle", execute_callback(bla, &Bla::toggle_led));
+    mbed_client_define_function("led/toggle", &toggle_led);
 
     bool setup = mbed_client_setup();
     if (!setup) {
