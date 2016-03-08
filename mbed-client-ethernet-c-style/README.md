@@ -37,7 +37,7 @@ void app_start(int, char **) {
 `mbed_client_setup` takes a `struct MbedClientOptions` as optional first parameter which you can use to configure the library. You can get the default options through `mbed_client_get_default_options()`, and override the ones you want. The options are:
 
 |Parameter|Description|Default Value|
----
+|---|---|---|
 |Manufacturer|LWM2M Device Manufacturer|
 |Type|LWM2M Device Type|Manufacturer_String|
 |ModelNumber|LWM2M Model Number|ModelNumber_String|
