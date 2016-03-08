@@ -1,6 +1,8 @@
-# simple-mbed-client-ethernet
+# mbed Client for Ethernet, C-style
 
-Experiments in creating a simpler mbed Client API. It consists of a library and two example applications.
+For the library documentation, look [here](mbed-client-ethernet-c-style/README.md).
+
+This repo contains experiments in creating a simpler mbed Client API. It consists of a library and two example applications.
 
 ## Setup (for FRDM-K64F)
 
