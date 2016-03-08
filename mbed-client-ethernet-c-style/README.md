@@ -38,8 +38,8 @@ void app_start(int, char **) {
 
 |Parameter|Description|Default Value|
 |---|---|---|
-|Manufacturer|LWM2M Device Manufacturer|
-|Type|LWM2M Device Type|Manufacturer_String|
+|Manufacturer|LWM2M Device Manufacturer|Manufacturer_String
+|Type|LWM2M Device Type|DeviceType_String|
 |ModelNumber|LWM2M Model Number|ModelNumber_String|
 |SerialNumber|LWM2M Serial Number|SerialNumber_String|
 |DeviceType|Device Connector Type|test|
