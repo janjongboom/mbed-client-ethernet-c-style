@@ -1,6 +1,6 @@
 # simple-mbed-client-ethernet
 
-Experiments in creating a simpler mbed Client API
+Experiments in creating a simpler mbed Client API.
 
 ## Setup
 

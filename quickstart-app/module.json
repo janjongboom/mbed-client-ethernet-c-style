@@ -1,0 +1,14 @@
+{
+  "name": "quickstart-app",
+  "license": "Apache-2.0",
+  "bin": "./source",
+  "version": "0.0.0",
+  "keywords": [],
+  "author": "",
+  "private": false,
+  "dependencies": {
+    "mbed-client-ethernet": "~0.1.0"
+  },
+  "targetDependencies": {},
+  "testDependencies": {}
+}
