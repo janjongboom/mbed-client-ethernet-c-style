@@ -1,22 +1,23 @@
 # simple-mbed-client-ethernet
 
-Experiments in creating a simpler mbed Client API.
+Experiments in creating a simpler mbed Client API. It consists of a library and two example applications.
 
-## Setup
+## Setup (for FRDM-K64F)
 
-```bash
-git clone git@github.com:ARMmbed/simple-mbed-client-ethernet.git
-cd simple-mbed-client-ethernet/mbed-client-ethernet
-sudo yt link
-cd ../example-app
-yt target frdm-k64f-gcc
-yt link mbed-client-ethernet
-yt install
-```
+1. Clone this repository
+1. Go into example-app/ or quickstart-app/ folder
+1. Get a [certificate](https://connector.mbed.com/#credentials) and store as source/security.h
+1. Run `yt target frdm-k64f-gcc`
+1. Run `yt build`
+1. Drag the `.bin` file from `build/frdm-k64f-gcc/source/` onto your FRDM-K64F board
 
-Now get a certificate and put it in source/security.h
+## Setup locally
 
-```
-yt build
-cp build/frdm-k64f-gcc/source/*.bin /Volumes/MBED
-```
+1. Go into mbed-client-ethernet-c-style/
+1. Run `sudo yt link`
+1. Go into example-app/ or quickstart-app/ folder
+1. Get a [certificate](https://connector.mbed.com/#credentials) and store as source/security.h
+1. Run `yt target frdm-k64f-gcc`
+1. Run `yt link mbed-client-ethernet-c-style`
+1. Run `yt build`
+1. Drag the `.bin` file from `build/frdm-k64f-gcc/source/` onto your FRDM-K64F board

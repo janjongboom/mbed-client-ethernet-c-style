@@ -1,5 +1,5 @@
 #include "security.h"
-#include "mbed-client-ethernet/client.h"
+#include "mbed-client-ethernet-c-style/client.h"
 
 DigitalOut blue(LED_BLUE);
 DigitalOut red(LED_RED);

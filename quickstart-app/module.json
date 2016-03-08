@@ -7,7 +7,7 @@
   "author": "",
   "private": false,
   "dependencies": {
-    "mbed-client-ethernet": "~0.1.0"
+    "mbed-client-ethernet-c-style": "~0.1.0"
   },
   "targetDependencies": {},
   "testDependencies": {}
