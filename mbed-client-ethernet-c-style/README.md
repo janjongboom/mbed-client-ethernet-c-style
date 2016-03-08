@@ -1,6 +1,8 @@
 # mbed Client for Ethernet (C-style)
 
-This is an [mbed Client](https://www.mbed.com/en/development/software/mbed-client/) library which connects devices to [mbed Device Connector](https://connector.mbed.com/) over Ethernet. The API is a lot simpler than the API of the normal mbed Client library, and is meant to add mbed Client support to any application in a few lines of C code, without needing to restructure your application.
+This is an [mbed Client](https://www.mbed.com/en/development/software/mbed-client/) library for mbed OS, which connects devices to [mbed Device Connector](https://connector.mbed.com/) over Ethernet. The API is a lot simpler than the API of the normal mbed Client library, and is meant to add mbed Client support to any application in a few lines of C code, without needing to restructure your application.
+
+Porting this repo over to do 6LoWPAN should be trivial.
 
 ## Set up
 
@@ -76,6 +78,19 @@ void app_start(int, char **) {
 
     // ... SETUP LOGIC HERE ...
 }
+```
+
+You can also reference class members via:
+
+```cpp
+LedResource* led = new LedResource();
+mbed_client_define_function("led/toggle", execute_callback(led, &LedResource::toggle_led);
+```
+
+Or use lambdas (mbed OS supports C++11):
+
+```cpp
+mbed_client_define_function("led/toggle", ([] (void*) -> void { green = !green; }));
 ```
 
 ## Full example application

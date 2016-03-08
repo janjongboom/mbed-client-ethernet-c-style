@@ -1,6 +1,6 @@
 {
   "name": "mbed-client-ethernet-c-style",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "Apache-2.0",
   "description": "C-Style library for mbed Client over Ethernet",
   "keywords": [

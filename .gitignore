@@ -5,3 +5,4 @@ build/
 .yotta.json
 .workspace
 .c9/
+upload.tar.gz
