@@ -32,6 +32,28 @@ void app_start(int, char **) {
 }
 ```
 
+### Options
+
+`mbed_client_setup` takes a `struct MbedClientOptions` as optional first parameter which you can use to configure the library. You can get the default options through `mbed_client_get_default_options()`, and override the ones you want. The options are:
+
+|Parameter|Description|Default Value|
+---
+|Manufacturer|LWM2M Device Manufacturer|
+|Type|LWM2M Device Type|Manufacturer_String|
+|ModelNumber|LWM2M Model Number|ModelNumber_String|
+|SerialNumber|LWM2M Serial Number|SerialNumber_String|
+|DeviceType|Device Connector Type|test|
+|SocketMode|Mode to connect (UDP or TCP)|M2MInterface::UDP|
+|ServerAddress|Address of Connector instance you want to use|coap://api.connector.mbed.com:5684|
+
+To override a setting do something like:
+
+```cpp
+struct MbedClientOptions opts = mbed_client_get_default_options();
+opts.DeviceType = "temperature";
+mbed_client_setup(opts);
+```
+
 ## Storing data in Connector
 
 Data is identified by routes (like URLs). A route is a string of two segments. First we define the route in our `app_start`, set whether the data is readable and/or writeable, and set a default value. Afterwards you can read/write from the resource in your normal functions.

@@ -37,6 +37,19 @@ static map<string, M2MObject*> objects;
 static map<string, M2MObjectInstance*> objectInstances;
 static map<string, M2MResource*> resources;
 
+struct MbedClientOptions mbed_client_get_default_options() {
+    struct MbedClientOptions options;
+    options.Manufacturer = "Manufacturer_String";
+    options.Type = "Type_String";
+    options.ModelNumber = "ModelNumber_String";
+    options.SerialNumber = "SerialNumber_String";
+    options.DeviceType = "test";
+    options.SocketMode = M2MInterface::UDP;
+    options.ServerAddress = "coap://api.connector.mbed.com:5684";
+
+    return options;
+}
+
 static bool mbed_client_init() {
     output.printf("In mbed_client_init\r\n");
     // This sets up the network interface configuration which will be used
@@ -91,13 +104,7 @@ bool mbed_client_setup() {
         return false;
     }
 
-    struct MbedClientOptions options = {
-        "Manufacturer_String",      // Manufacturer
-        "Type_String",              // Type
-        "ModelNumber_String",       // ModelNumber
-        "SerialNumber_String",      // SerialNumber
-        "test"
-    };
+    struct MbedClientOptions options = mbed_client_get_default_options();
 
     client = new MbedClient(options);
     return mbed_client_init();

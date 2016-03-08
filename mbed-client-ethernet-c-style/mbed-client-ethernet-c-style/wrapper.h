@@ -29,12 +29,6 @@
 #include "mbed-client/m2mresource.h"
 #include "minar/minar.h"
 
-//Select binding mode: UDP or TCP
-M2MInterface::BindingMode SOCKET_MODE = M2MInterface::UDP;
-
-// This is address to mbed Device Connector
-const String &MBED_SERVER_ADDRESS = "coap://api.connector.mbed.com:5684";
-
 // These come from the security.h file copied from connector.mbed.com
 const String &MBED_USER_NAME_DOMAIN = MBED_DOMAIN;
 const String &ENDPOINT_NAME = MBED_ENDPOINT_NAME;
@@ -45,6 +39,8 @@ struct MbedClientOptions {
     const char* ModelNumber;
     const char* SerialNumber;
     const char* DeviceType;
+    M2MInterface::BindingMode SocketMode;
+    const char* ServerAddress;
 };
 
 /*
@@ -60,7 +56,7 @@ struct MbedClientOptions {
 class MbedClient: public M2MInterfaceObserver {
 public:
     // constructor for MbedClient object, initialize private variables
-    MbedClient(struct MbedClientOptions device) {
+    MbedClient(struct MbedClientOptions options) {
         _interface = NULL;
         _bootstrapped = false;
         _error = false;
@@ -69,7 +65,7 @@ public:
         _register_security = NULL;
         _value = 0;
         _object = NULL;
-        _device = device;
+        _options = options;
         _onRegistered = NULL;
         _onUnregistered = NULL;
     }
@@ -110,11 +106,11 @@ public:
     // create mDS interface object, this is the base object everything else attaches to
     _interface = M2MInterfaceFactory::create_interface(*this,
                                                       ENDPOINT_NAME,            // endpoint name string
-                                                      _device.DeviceType,        // endpoint type string
+                                                      _options.DeviceType,      // endpoint type string
                                                       100,                      // lifetime
                                                       port,                     // listen port
                                                       MBED_USER_NAME_DOMAIN,    // domain string
-                                                      SOCKET_MODE,              // binding mode
+                                                      _options.SocketMode,      // binding mode
                                                       M2MInterface::LwIP_IPv4,  // network stack
                                                       "");                      // context address string
     }
@@ -145,7 +141,7 @@ public:
         // make sure security ObjectID/ObjectInstance was created successfully
         if(security) {
             // Add ResourceID's and values to the security ObjectID/ObjectInstance
-            security->set_resource_value(M2MSecurity::M2MServerUri, MBED_SERVER_ADDRESS);
+            security->set_resource_value(M2MSecurity::M2MServerUri, _options.ServerAddress);
             security->set_resource_value(M2MSecurity::SecurityMode, M2MSecurity::Certificate);
             security->set_resource_value(M2MSecurity::ServerPublicKey, SERVER_CERT, sizeof(SERVER_CERT));
             security->set_resource_value(M2MSecurity::PublicKey, CERT, sizeof(CERT));
@@ -164,10 +160,10 @@ public:
         // make sure device object was created successfully
         if(device) {
             // add resourceID's to device objectID/ObjectInstance
-            device->create_resource(M2MDevice::Manufacturer, _device.Manufacturer);
-            device->create_resource(M2MDevice::DeviceType, _device.Type);
-            device->create_resource(M2MDevice::ModelNumber, _device.ModelNumber);
-            device->create_resource(M2MDevice::SerialNumber, _device.SerialNumber);
+            device->create_resource(M2MDevice::Manufacturer, _options.Manufacturer);
+            device->create_resource(M2MDevice::DeviceType, _options.Type);
+            device->create_resource(M2MDevice::ModelNumber, _options.ModelNumber);
+            device->create_resource(M2MDevice::SerialNumber, _options.SerialNumber);
         }
         return device;
     }
@@ -330,9 +326,9 @@ private:
     volatile bool                       _registered;
     volatile bool                       _unregistered;
     int                                 _value;
-    struct MbedClientOptions            _device;
-    mbed::util::FunctionPointer0<void> _onRegistered;
-    mbed::util::FunctionPointer0<void> _onUnregistered;
+    struct MbedClientOptions            _options;
+    mbed::util::FunctionPointer0<void>  _onRegistered;
+    mbed::util::FunctionPointer0<void>  _onUnregistered;
 };
 
 #endif // __MBED_CLIENT_ETHERNET_WRAPPER_H__
